@@ -1,0 +1,51 @@
+syntax = "proto3";
+
+package books;
+
+option go_package = "./pkg/books/pb";
+
+service BookService{
+    rpc CreateBook(CreateBookRequest) returns (CreateBookResponse){}
+    rpc GetBook(GetBookRequest) returns (GetBookResponse){}
+    rpc GetAuthor(GetAuthorRequest) returns (GetAuthorResponse){}
+}
+
+// CreateUser
+message CreateBookRequest{
+    string title = 1;
+    string name = 2;
+    string surname = 3;
+}
+
+message CreateBookResponse{
+    Response response = 1;
+}
+
+//GetBook
+message GetBookRequest{
+    string name = 1;
+}
+
+message GetBookResponse{
+    string id = 1;
+    bool ok = 2;
+}
+
+//GetAuthor
+message GetAuthorRequest{
+    string name = 1;
+    string surname = 2;
+}
+
+message GetAuthorResponse{
+    string id = 1;
+    bool ok = 2;
+}
+
+// Response
+message Response {
+    int64 status = 1;
+    string error = 2;
+}
+
+

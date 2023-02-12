@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package email;
+
+option go_package = "./pkg/email/pb";
+
+service SendMailService{
+    rpc SendMail(SendMailRequest) returns (Response){}
+}
+
+// SendMail
+message SendMailRequest{
+    string id = 1;
+}
+
+// Response
+message Response {
+    int64 status = 1;
+    string error = 2;
+}
+
+  
