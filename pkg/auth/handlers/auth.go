@@ -43,5 +43,8 @@ func Login(c echo.Context, auth pb.AuthServiceClient) error {
 	if err != nil {
 		return echo.NewHTTPError(http.StatusBadGateway, err.Error())
 	}
+
+	c.SetCookie(SetCookies(res.Token))
+
 	return c.JSON(http.StatusOK, &res)
 }

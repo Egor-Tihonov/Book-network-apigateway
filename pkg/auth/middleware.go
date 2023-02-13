@@ -8,7 +8,7 @@ import (
 )
 
 var IsLoggedIn = middleware.JWTWithConfig(middleware.JWTConfig{
-	SigningKey:              []byte("SUPER-KEY"),
+	SigningKey:              []byte("MY-SUPER-KEY"),
 	TokenLookup:             "cookie:token",
 	ErrorHandlerWithContext: JWTErrorChecker,
 })

@@ -7,7 +7,6 @@ option go_package = "./pkg/auth/pb";
 service AuthService{
     rpc Registration(RegistrationRequest) returns (Response){}
     rpc Login(LoginRequest) returns (LoginResponse){}
-    rpc Validate(ValidateRequest) returns (ValidateResponse){}
 }
 
 // Login
@@ -27,16 +26,6 @@ message RegistrationRequest{
     string username = 2;
     string email = 3;
     string password = 4;
-}
-
-// Validate
-message ValidateRequest{
-    string token = 1;
-}
-
-message ValidateResponse{
-    Response response = 1;
-    string userID = 2;
 }
 
 // Response
