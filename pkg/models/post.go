@@ -1,12 +1,8 @@
 package models
 
-type Book struct {
+type Post struct {
 	Title   string `json:"title"`
 	Name    string `json:"name"`
 	Surname string `json:"surname"`
-}
-
-type Author struct {
-	Name    string `json:"name"`
-	Surname string `json:"surname"`
+	Content string `json:"content"`
 }

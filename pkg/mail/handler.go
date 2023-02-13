@@ -6,9 +6,9 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-func RegisterHandlers(e *echo.Echo, conf config.Config) *ServiceClient {
+func RegisterHandlers(e *echo.Echo, conf *config.Config) *ServiceClient {
 	svc := ServiceClient{
-		Client: InitMailClient(&conf),
+		Client: InitMailClient(conf),
 	}
 
 	e.POST("/email", svc.SendEmail)

@@ -5,7 +5,6 @@ package user;
 option go_package = "./pkg/user/pb";
 
 service UserService{
-    rpc CreateUser(CreateUserRequest) returns (CreateUserResponse){}
     rpc GetUser(GetUserRequest) returns (GetUserResponse){}
     rpc UpdateUser(UpdateUserRequest) returns (UpdateUserResponse){}
     rpc DeleteUser (DeleteUserRequest) returns (DeleteUserResponse){}
@@ -16,15 +15,6 @@ service UserService{
     rpc GetPost(GetPostRequest) returns (GetPostResponse){}
     rpc GetLastPosts(GetLastPostsRequest) returns (GetLastPostsResponse){}
     rpc CreatePost(CreatePostRequest) returns (CreatePostResponse){}
-}
-
-// CreateUser
-message CreateUserRequest{
-    User user = 1;
-}
-
-message CreateUserResponse{
-    Response response = 1;
 }
 
 // GetUser
@@ -41,7 +31,7 @@ message GetUserResponse{
 
 // UpdateUser
 message UpdateUserRequest{
-    optional string id = 1;
+    string id  = 1;
     optional ChangePasswrod changePasswrod = 2;
     optional string status = 4;
     optional string name = 5;
@@ -88,6 +78,7 @@ message GetNewUsersResponse{
 // AddNewSubscription
 message AddNewSubscriptionRequest{
     string id = 1;
+    string userid = 2;
 }
 
 message AddNewSubscriptionResponse{
@@ -97,6 +88,7 @@ message AddNewSubscriptionResponse{
 // DeleteNewSubscription
 message DeleteSubscriptionRequest{
     string id = 1;
+    string userid = 2;
 }
 
 message DeleteSubscriptionResponse{
