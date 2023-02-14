@@ -11,9 +11,8 @@ func RegisterHandlers(e *echo.Echo, conf *config.Config) *ServiceClient {
 		Client: InitServiceClient(conf),
 	}
 
-	routes := e.Group("/auth")
-	routes.POST("/sign-up", svc.Registration)
-	routes.POST("/login", svc.Login)
+	e.POST("/sign-up", svc.Registration)
+	e.POST("/login", svc.Login)
 
 	return svc
 }

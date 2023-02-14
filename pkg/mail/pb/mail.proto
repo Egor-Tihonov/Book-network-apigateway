@@ -10,7 +10,7 @@ service SendMailService{
 
 // SendMail
 message SendMailRequest{
-    string id = 1;
+    string email = 1;
 }
 
 // Response

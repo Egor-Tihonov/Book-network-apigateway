@@ -11,21 +11,22 @@ import (
 )
 
 func Registration(c echo.Context, auth pb.AuthServiceClient) error {
-	body := models.RegistrationRequest{}
+	user := models.User{}
 
-	if err := json.NewDecoder(c.Request().Body).Decode(&body); err != nil {
+	if err := json.NewDecoder(c.Request().Body).Decode(&user); err != nil {
 		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
 	}
 
 	res, err := auth.Registration(context.Background(), &pb.RegistrationRequest{
-		Name:     body.Name,
-		Username: body.Username,
-		Email:    body.Email,
-		Password: body.Password,
+		Name: user.Name,
+		Username: user.Username,
+		Email:    user.Email,
+		Password: user.Password,
 	})
 	if err != nil {
 		return echo.NewHTTPError(http.StatusBadGateway, err.Error())
 	}
+
 	return c.JSON(int(res.Status), &res)
 }
 

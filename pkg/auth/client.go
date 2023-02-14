@@ -9,6 +9,7 @@ import (
 
 type ServiceClient struct {
 	Client pb.AuthServiceClient
+	Config *config.Config
 }
 
 func InitServiceClient(c *config.Config) pb.AuthServiceClient {

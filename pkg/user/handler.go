@@ -11,18 +11,19 @@ func RegisterHandlers(e *echo.Echo, conf *config.Config) *ServiceClient {
 	svc := ServiceClient{
 		Cliet: InitUserClient(conf),
 	}
-	e.Use(auth.IsLoggedIn)
-	e.POST("/post", svc.CreatePost)
-	e.GET("/post/:id", svc.GetPost)
+	routes := e.Group("/user")
+	routes.Use(auth.IsLoggedIn)
+	routes.POST("/post", svc.CreatePost)
+	routes.GET("/post/:id", svc.GetPost)
 
-	e.GET("/user", svc.GetUser)
-	e.GET("/user/:id", svc.GetOtherUser)
-	e.PUT("/user", svc.UpdateUser)
-	e.DELETE("/user", svc.DeleteUser)
-	e.GET("/new-users", svc.GetNewUsers)
+	routes.GET("/user", svc.GetUser)
+	routes.GET("/user/:id", svc.GetOtherUser)
+	routes.PUT("/user", svc.UpdateUser)
+	routes.DELETE("/user", svc.DeleteUser)
+	routes.GET("/new-users", svc.GetNewUsers)
 
-	e.POST("/subscriptions/add/:id", svc.AddNewSubscription)
-	e.DELETE("/subscriptions/delete/:id", svc.DeleteSubscription)
+	routes.POST("/subscriptions/add/:id", svc.AddNewSubscription)
+	routes.DELETE("/subscriptions/delete/:id", svc.DeleteSubscription)
 
 	return &svc
 }

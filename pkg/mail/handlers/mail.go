@@ -9,9 +9,9 @@ import (
 )
 
 func SendEmail(c echo.Context, mail pb.SendMailServiceClient) error {
-	a := c.Param("authString")
+	a := c.Param("email")
 	res, err := mail.SendMail(context.Background(), &pb.SendMailRequest{
-		Id: a,
+		Email: a,
 	})
 
 	if err != nil {
