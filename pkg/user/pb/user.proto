@@ -8,7 +8,6 @@ service UserService{
     rpc GetUser(GetUserRequest) returns (GetUserResponse){}
     rpc UpdateUser(UpdateUserRequest) returns (UpdateUserResponse){}
     rpc DeleteUser (DeleteUserRequest) returns (DeleteUserResponse){}
-    rpc GetOtherUser(GetOtherUserRequest) returns (GetOtherUserResponse){}
     rpc GetNewUsers(GetNewUsersRequest) returns (GetNewUsersResponse){}
     rpc AddNewSubscription(AddNewSubscriptionRequest) returns (AddNewSubscriptionResponse){}
     rpc DeleteSubscription(DeleteSubscriptionRequest) returns (DeleteSubscriptionResponse){}
@@ -32,10 +31,11 @@ message GetUserResponse{
 // UpdateUser
 message UpdateUserRequest{
     string id  = 1;
-    optional ChangePasswrod changePasswrod = 2;
     optional string status = 4;
     optional string name = 5;
     optional string username = 6;
+    optional string newpassword = 7;
+    optional string oldpassword = 8;
 }
 
 message ChangePasswrod{
@@ -54,17 +54,6 @@ message DeleteUserRequest{
 
 message DeleteUserResponse{
     Response response = 1;
-}
-
-// GetOtherUser
-message GetOtherUserRequest{
-    string id = 1;
-}
-
-message GetOtherUserResponse{
-    User user = 1;
-    repeated Post post = 2;
-    Response response = 3;
 }
 
 // GetNewUsers

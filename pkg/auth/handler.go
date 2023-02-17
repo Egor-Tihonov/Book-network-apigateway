@@ -12,6 +12,7 @@ func RegisterHandlers(e *echo.Echo, conf *config.Config) *ServiceClient {
 	}
 
 	e.POST("/sign-up", svc.Registration)
+	e.POST("/logout", svc.Logout)
 	e.POST("/login", svc.Login)
 
 	return svc
@@ -19,6 +20,10 @@ func RegisterHandlers(e *echo.Echo, conf *config.Config) *ServiceClient {
 
 func (s *ServiceClient) Registration(c echo.Context) error {
 	return handlers.Registration(c, s.Client)
+}
+
+func (s *ServiceClient) Logout(c echo.Context) error {
+	return handlers.Logout(c, s.Client)
 }
 
 func (s *ServiceClient) Login(c echo.Context) error {

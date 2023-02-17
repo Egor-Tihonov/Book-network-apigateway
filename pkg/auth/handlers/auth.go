@@ -18,7 +18,7 @@ func Registration(c echo.Context, auth pb.AuthServiceClient) error {
 	}
 
 	res, err := auth.Registration(context.Background(), &pb.RegistrationRequest{
-		Name: user.Name,
+		Name:     user.Name,
 		Username: user.Username,
 		Email:    user.Email,
 		Password: user.Password,
@@ -48,4 +48,9 @@ func Login(c echo.Context, auth pb.AuthServiceClient) error {
 	c.SetCookie(SetCookies(res.Token))
 
 	return c.JSON(http.StatusOK, &res)
+}
+
+func Logout(c echo.Context, auth pb.AuthServiceClient) error {
+	c.SetCookie(SetCookies(""))
+	return c.JSON(http.StatusOK, nil)
 }

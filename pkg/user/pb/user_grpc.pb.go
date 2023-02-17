@@ -25,7 +25,6 @@ type UserServiceClient interface {
 	GetUser(ctx context.Context, in *GetUserRequest, opts ...grpc.CallOption) (*GetUserResponse, error)
 	UpdateUser(ctx context.Context, in *UpdateUserRequest, opts ...grpc.CallOption) (*UpdateUserResponse, error)
 	DeleteUser(ctx context.Context, in *DeleteUserRequest, opts ...grpc.CallOption) (*DeleteUserResponse, error)
-	GetOtherUser(ctx context.Context, in *GetOtherUserRequest, opts ...grpc.CallOption) (*GetOtherUserResponse, error)
 	GetNewUsers(ctx context.Context, in *GetNewUsersRequest, opts ...grpc.CallOption) (*GetNewUsersResponse, error)
 	AddNewSubscription(ctx context.Context, in *AddNewSubscriptionRequest, opts ...grpc.CallOption) (*AddNewSubscriptionResponse, error)
 	DeleteSubscription(ctx context.Context, in *DeleteSubscriptionRequest, opts ...grpc.CallOption) (*DeleteSubscriptionResponse, error)
@@ -63,15 +62,6 @@ func (c *userServiceClient) UpdateUser(ctx context.Context, in *UpdateUserReques
 func (c *userServiceClient) DeleteUser(ctx context.Context, in *DeleteUserRequest, opts ...grpc.CallOption) (*DeleteUserResponse, error) {
 	out := new(DeleteUserResponse)
 	err := c.cc.Invoke(ctx, "/user.UserService/DeleteUser", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *userServiceClient) GetOtherUser(ctx context.Context, in *GetOtherUserRequest, opts ...grpc.CallOption) (*GetOtherUserResponse, error) {
-	out := new(GetOtherUserResponse)
-	err := c.cc.Invoke(ctx, "/user.UserService/GetOtherUser", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -139,7 +129,6 @@ type UserServiceServer interface {
 	GetUser(context.Context, *GetUserRequest) (*GetUserResponse, error)
 	UpdateUser(context.Context, *UpdateUserRequest) (*UpdateUserResponse, error)
 	DeleteUser(context.Context, *DeleteUserRequest) (*DeleteUserResponse, error)
-	GetOtherUser(context.Context, *GetOtherUserRequest) (*GetOtherUserResponse, error)
 	GetNewUsers(context.Context, *GetNewUsersRequest) (*GetNewUsersResponse, error)
 	AddNewSubscription(context.Context, *AddNewSubscriptionRequest) (*AddNewSubscriptionResponse, error)
 	DeleteSubscription(context.Context, *DeleteSubscriptionRequest) (*DeleteSubscriptionResponse, error)
@@ -161,9 +150,6 @@ func (UnimplementedUserServiceServer) UpdateUser(context.Context, *UpdateUserReq
 }
 func (UnimplementedUserServiceServer) DeleteUser(context.Context, *DeleteUserRequest) (*DeleteUserResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteUser not implemented")
-}
-func (UnimplementedUserServiceServer) GetOtherUser(context.Context, *GetOtherUserRequest) (*GetOtherUserResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetOtherUser not implemented")
 }
 func (UnimplementedUserServiceServer) GetNewUsers(context.Context, *GetNewUsersRequest) (*GetNewUsersResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetNewUsers not implemented")
@@ -246,24 +232,6 @@ func _UserService_DeleteUser_Handler(srv interface{}, ctx context.Context, dec f
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(UserServiceServer).DeleteUser(ctx, req.(*DeleteUserRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _UserService_GetOtherUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetOtherUserRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(UserServiceServer).GetOtherUser(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/user.UserService/GetOtherUser",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(UserServiceServer).GetOtherUser(ctx, req.(*GetOtherUserRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -394,10 +362,6 @@ var UserService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "DeleteUser",
 			Handler:    _UserService_DeleteUser_Handler,
-		},
-		{
-			MethodName: "GetOtherUser",
-			Handler:    _UserService_GetOtherUser_Handler,
 		},
 		{
 			MethodName: "GetNewUsers",

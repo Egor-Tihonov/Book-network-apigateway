@@ -9,3 +9,8 @@ type LoginRequest struct {
 	AuthString string `json:"authstring"`
 	Password   string `json:"password"`
 }
+
+type UpdatePassword struct {
+	OldPassword string `json:"oldPassword"`
+	NewPassword string `json:"newPassword"`
+}

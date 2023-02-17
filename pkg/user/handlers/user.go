@@ -32,21 +32,17 @@ func UpdateUser(c echo.Context, uscl pb.UserServiceClient) error {
 		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
 	}
 
-	changepass := pb.ChangePasswrod{
-		PasswordNew: body.NewPassword,
-		PasswordOld: body.OldPassword,
-	}
-
 	userFromJwt := c.Get("user").(*jwt.Token) //why c.Get("user") to get auth header
 	claims := userFromJwt.Claims.(jwt.MapClaims)
 	idFromJwt := claims["id"].(string)
 
 	res, err := uscl.UpdateUser(context.Background(), &pb.UpdateUserRequest{
-		Id:             idFromJwt,
-		ChangePasswrod: &changepass,
-		Name:           &body.Name,
-		Username:       &body.Username,
-		Status:         &body.Status,
+		Id:          idFromJwt,
+		Name:        &body.Name,
+		Username:    &body.Username,
+		Status:      &body.Status,
+		Newpassword: &body.NewPassword,
+		Oldpassword: &body.OldPassword,
 	})
 
 	if err != nil {
@@ -73,9 +69,10 @@ func DeleteUser(c echo.Context, uscl pb.UserServiceClient) error {
 
 func GetOtherUser(c echo.Context, uscl pb.UserServiceClient) error {
 	id := c.Param("id")
-	res, err := uscl.GetOtherUser(context.Background(), &pb.GetOtherUserRequest{
+	res, err := uscl.GetUser(context.Background(), &pb.GetUserRequest{
 		Id: id,
 	})
+
 	if err != nil {
 		return echo.NewHTTPError(http.StatusBadGateway, err.Error())
 	}

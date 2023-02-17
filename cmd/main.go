@@ -20,6 +20,8 @@ func main() {
 	auth.RegisterHandlers(e, &c)
 	mail.RegisterHandlers(e, &c)
 	user.RegisterHandlers(e, &c)
+	//add book service
+
 
 	if err := e.Start(c.Port); err != nil {
 		logrus.Fatalf("error starting api gateway, %w", err)

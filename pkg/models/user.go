@@ -11,7 +11,12 @@ type User struct {
 type UserUpdate struct {
 	Name        string `json:"name"`
 	Username    string `json:"username"`
+	Status      string `json:"status"`
+	OldPassword string `json:"oldpassword"`
+	NewPassword string `json:"newpassword"`
+}
+
+type SecurityUserUpdate struct {
 	OldPassword string `json:"oldpassword"`
 	NewPassword string `json:"newpasswrod"`
-	Status      string `json:"status"`
 }

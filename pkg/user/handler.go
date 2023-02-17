@@ -14,16 +14,16 @@ func RegisterHandlers(e *echo.Echo, conf *config.Config) *ServiceClient {
 	routes := e.Group("/user")
 	routes.Use(auth.IsLoggedIn)
 	routes.POST("/post", svc.CreatePost)
-	routes.GET("/post/:id", svc.GetPost)
-
-	routes.GET("/user", svc.GetUser)
-	routes.GET("/user/:id", svc.GetOtherUser)
-	routes.PUT("/user", svc.UpdateUser)
-	routes.DELETE("/user", svc.DeleteUser)
-	routes.GET("/new-users", svc.GetNewUsers)
-
+	//routes.DELETE("/post", svc.DeletePost)
+	routes.GET("/:id", svc.GetOtherUser)
+	routes.GET("/", svc.GetUser)
+	routes.PUT("/", svc.UpdateUser)
+	routes.DELETE("/", svc.DeleteUser)
 	routes.POST("/subscriptions/add/:id", svc.AddNewSubscription)
 	routes.DELETE("/subscriptions/delete/:id", svc.DeleteSubscription)
+
+	e.GET("/new-users", svc.GetNewUsers)
+	e.GET("/post/:id", svc.GetPost)
 
 	return &svc
 }
