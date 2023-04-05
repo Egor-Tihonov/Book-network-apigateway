@@ -5,6 +5,7 @@ import "github.com/spf13/viper"
 type Config struct {
 	Port        string `mapstructure:"PORT"`
 	AuthService string `mapstructure:"AUTH_SVC_URL"`
+	BookService string `mapstructure:"BOOK_SVC_URL"`
 	MailService string `mapstructure:"MAIL_SVC_URL"`
 	UserService string `mapstructure:"USER_SVC_URL"`
 }
