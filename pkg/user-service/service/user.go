@@ -258,3 +258,16 @@ func GetMyFeed(c echo.Context, uscl pb.UserServiceClient) error {
 
 	return c.JSON(http.StatusOK, feed)
 }
+
+func SearchUser(c echo.Context, uscl pb.UserServiceClient) error {
+	queary := c.Param("search")
+	users, err := uscl.SearchUser(context.Background(), &pb.SearchUserRequest{
+		Queary: queary,
+	})
+
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadGateway, err.Error())
+	}
+
+	return c.JSON(http.StatusOK, users)
+}
