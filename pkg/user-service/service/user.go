@@ -13,6 +13,29 @@ import (
 	"github.com/sirupsen/logrus"
 )
 
+func GetAllReviews(c echo.Context, uscl pb.UserServiceClient) error {
+	res, err := uscl.GetAllReviews(context.Background(), &pb.GetAllReviewsRequest{})
+
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadGateway, err.Error())
+	}
+
+	return c.JSON(http.StatusOK, res)
+}
+
+func GetPostsForBook(c echo.Context, uscl pb.UserServiceClient) error {
+	bookid := c.Param("id")
+	res, err := uscl.GetPostsForBook(context.Background(), &pb.GetPostsForBookRequest{
+		Id: bookid,
+	})
+
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadGateway, err.Error())
+	}
+
+	return c.JSON(http.StatusOK, res)
+}
+
 func GetMySubs(c echo.Context, uscl pb.UserServiceClient) error {
 	userFromJwt := c.Get("user").(*jwt.Token)
 	claims := userFromJwt.Claims.(jwt.MapClaims)

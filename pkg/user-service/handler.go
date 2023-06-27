@@ -25,11 +25,21 @@ func RegisterHandlers(e *echo.Echo, conf *config.Config) *ServiceClient {
 	routes.PUT("/subscriptions/add/:id", svc.AddNewSubscription)
 	routes.PUT("/subscriptions/delete/:id", svc.DeleteSubscription)
 	routes.GET("/new-users", svc.GetNewUsers)
-
+	routes.GET("/book/:id", svc.GetPostsForBook)
+	
+	e.GET("/reviews",svc.Reviews)
 	e.GET("/post/:id", svc.GetPost)
 	e.GET("/search/:search", svc.Search)
 
 	return &svc
+}
+
+func (s *ServiceClient) Reviews(c echo.Context) error {
+	return service.GetAllReviews(c, s.Cliet)
+}
+
+func (s *ServiceClient) GetPostsForBook(c echo.Context) error {
+	return service.GetPostsForBook(c, s.Cliet)
 }
 
 func (s *ServiceClient) GetMySubs(c echo.Context) error {
